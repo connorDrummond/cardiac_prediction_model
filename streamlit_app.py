@@ -67,7 +67,8 @@ scaler = StandardScaler()
 #model.evaluate(x_test_scaled, y_test, verbose=2)
 
 
-dataset = dataset.append(input_df)
+dataset._append(input_df)
+
 
 dataset_scaled = scaler.fit_transform(dataset)
 
