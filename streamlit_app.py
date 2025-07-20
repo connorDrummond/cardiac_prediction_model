@@ -66,11 +66,11 @@ scaler = StandardScaler()
 # evaluate the model.
 #model.evaluate(x_test_scaled, y_test, verbose=2)
 
-
 dataset._append(input_df)
 
-dataset = dataset.drop(columns=['ca', 'thal', 'target'], inplace=True)
 
+dataset = dataset.drop(columns=['ca', 'thal', 'target'], inplace=True)
+dataset
 
 dataset_scaled = scaler.fit_transform(dataset)
 
