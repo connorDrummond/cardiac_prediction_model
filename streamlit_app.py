@@ -29,13 +29,57 @@ with st.sidebar:
     max_heart_rate = st.number_input("Maximum exercise-induced heart rate results", min_value=60, max_value=300)
     oldpeak = st.number_input("ST Depression (Oldpeak)", min_value=0.0, max_value=50.0)
 
-input_dict = {'age': age, 'sex': sex, 'chest_pain': chest_pain, 'restbps': restbps, 'cholesterol': cholesterol,
-              'blood_sugar': blood_sugar, 'restecg': restecg, 'max_heartrt': max_heart_rate, 'exang': exang,
-              'oldpeak': oldpeak, 'slope': st_slope}
+if sex == 'Male':
+    sex_num = 1
+else:
+    sex_num = 2
+
+if chest_pain == 'None':
+    chest_pain_num = 0
+elif chest_pain == 'Typical angina':
+    chest_pain_num = 1
+elif chest_pain == 'Atypical angina':
+    chest_pain_num = 2
+elif chest_pain == 'Non-anginal pain':
+    chest_pain_num = 3
+else:
+    chest_pain_num = 4
+
+if blood_sugar == 'Yes':
+    blood_sugar_num = 1
+else:
+    blood_sugar_num = 0
+
+if restecg == 'Normal':
+    restecg_num = 0
+elif restecg == 'ST-T wave abnormality (e.g., T wave inversion, ST elevation/depression > 0.05 mV)':
+    restecg_num = 1
+else:
+    restecg_num = 2
+
+if exang == 'Yes':
+    exang_num = 1
+else:
+    exang_num = 0
+
+if st_slope == 'Upsloping':
+    st_slope_num = 0
+elif st_slope == 'Downsloping':
+    st_slope_num = 2
+elif st_slope == 'Flat':
+    st_slope_num = 1
+
+
+
+input_dict = {'age': age, 'sex': sex, 'chest_pain': chest_pain_num, 'restbps': restbps, 'cholesterol': cholesterol,
+              'blood_sugar': blood_sugar_num, 'restecg': restecg_num, 'max_heartrt': max_heart_rate, 'exang': exang_num,
+              'oldpeak': oldpeak, 'slope': st_slope_num}
 
 input_df = pd.DataFrame(input_dict, index=[0])
 
 input_df
+
+
 dataset = pd.read_csv('cardiac_arrest_dataset.csv')
 
 # Below is the code for the model. It has already been trained and saved as 'heart_disease_predicition_model.h5'
