@@ -84,5 +84,5 @@ if st.button("Predict"):
     prediction = prediction_model.predict(dataset_scaled)
     st.write(f"Your likelihood of Coronary Artery Disease: {prediction}")
 
-scaler.inverse_transform(dataset_scaled)
+dataset_scaled = scaler.inverse_transform(dataset_scaled)
 st.write(dataset_scaled)
