@@ -83,3 +83,6 @@ prediction_model = tf.keras.models.load_model('heart_disease_prediction_model.h5
 if st.button("Predict"):
     prediction = prediction_model.predict(dataset_scaled)
     st.write(f"Your likelihood of Coronary Artery Disease: {prediction}")
+
+scaler.inverse_transform(dataset_scaled)
+print(dataset_scaled)
