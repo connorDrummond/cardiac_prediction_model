@@ -80,7 +80,7 @@ prediction_model = tf.keras.models.load_model('heart_disease_prediction_model.h5
 
 if st.button("Predict"):
 
-    dataset._append(input_df)
+    dataset.concat(input_df)
     dataset.drop(columns=['ca', 'thal', 'target'], inplace=True)
 
     dataset_scaled = scaler.fit_transform(dataset)
