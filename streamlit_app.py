@@ -72,7 +72,7 @@ dataset._append(input_df)
 
 dataset_scaled = scaler.fit_transform(dataset)
 
-last_row = dataset_scaled.iloc[-1]
+last_row = dataset_scaled[-1]
 
 prediction_model = tf.keras.models.load_model('cardiac_arrest_prediction_model.h5')
 
