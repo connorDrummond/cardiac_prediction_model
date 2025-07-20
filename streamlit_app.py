@@ -129,5 +129,5 @@ if st.button("Predict"):
     dataset = pd.concat([dataset, input_df], axis=0)
     dataset_scaled = scaler.fit_transform(dataset)
     prediction = prediction_model.predict(dataset_scaled)
-    st.write(f"Your likelihood of Coronary Artery Disease: {(prediction * std) + mean}")
+    st.write(f"Your likelihood of Coronary Artery Disease: {prediction}")
 
