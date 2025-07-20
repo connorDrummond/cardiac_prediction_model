@@ -47,7 +47,7 @@ dataset = pd.read_csv('cardiac_arrest_dataset.csv')
 #model = tf.keras.models.Sequential()
 
 # scale the input to fit the model
-#scaler = StandardScaler()
+scaler = StandardScaler()
 #x_train_scaled = scaler.fit_transform(x_train)
 #x_test_scaled = scaler.fit_transform(x_test)
 
@@ -66,6 +66,19 @@ dataset = pd.read_csv('cardiac_arrest_dataset.csv')
 # evaluate the model.
 #model.evaluate(x_test_scaled, y_test, verbose=2)
 
+
+dataset = dataset.append(input_df)
+
+dataset_scaled = scaler.fit_transform(dataset)
+
+last_row = dataset_scaled.iloc[-1]
+
+prediction_model = tf.keras.models.load_model('cardiac_arrest_prediction_model.h5')
+
+prediction = prediction_model.predict(last_row)
+
+st.subheader("Prediction")
+st.write(prediction)
 
 
 
