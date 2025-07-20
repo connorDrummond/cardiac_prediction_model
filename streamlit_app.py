@@ -31,10 +31,10 @@ input_dict = {'age': age, 'sex': sex, 'chest_pain': chest_pain, 'blood_sugar': b
 input_df = pd.DataFrame(input_dict, index=[0])
 
 input_df
-
+dataset = pd.read_csv('cardiac_arrest_dataset.csv')
 # Below is the code for the model. It has already been trained and saved as 'heart_disease_predicition_model.h5'
 
-dataset = pd.read_csv('cardiac_arrest_dataset.csv')
+
 
 # create our training, and validation data. Randomly choose which data is in which set.
 
@@ -74,12 +74,14 @@ dataset_scaled = scaler.fit_transform(dataset)
 
 last_row = dataset_scaled[-1]
 
-prediction_model = tf.keras.models.load_model('cardiac_arrest_prediction_model.h5')
+prediction_model = tf.keras.models.load_model('heart_disease_prediction_model.h5')
 
-prediction = prediction_model.predict(last_row)
 
-st.subheader("Prediction")
-st.write(prediction)
+
+if st.button("Predict"):
+    features = last_row
+    prediction = prediction_model.predict(last_row)
+    st.write(f"Your likelihood of Coronary Artery Disease: {prediction[0]}")
 
 
 
