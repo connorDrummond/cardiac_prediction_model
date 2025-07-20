@@ -123,6 +123,7 @@ if st.button("Predict"):
     dataset.drop(columns=['ca', 'thal', 'target'], inplace=True)
 
     dataset_scaled = scaler.fit_transform(dataset)
+    st.write(dataset_scaled)
     prediction = prediction_model.predict(dataset_scaled)
     st.write(f"Your likelihood of Coronary Artery Disease: {prediction}")
     dataset_scaled = scaler.inverse_transform(dataset_scaled)
