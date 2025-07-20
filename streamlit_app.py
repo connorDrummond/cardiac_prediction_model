@@ -81,7 +81,10 @@ input_df
 
 
 dataset = pd.read_csv('cardiac_arrest_dataset.csv')
+mean = dataset['target'].mean()
+std = dataset['target'].std()
 
+st.write(mean, std)
 # Below is the code for the model. It has already been trained and saved as 'heart_disease_predicition_model.h5'
 
 
