@@ -24,7 +24,7 @@ with st.sidebar:
     cholesterol = st.number_input("Cholesterol results", min_value=100, max_value=300)
     restbps = st.number_input("Resting systolic blood pressure results", min_value=80, max_value=250)
     max_heart_rate = st.number_input("Maximum exercise-induced heart rate results", min_value=60, max_value=300)
-    oldpeak = st.number_input("ST Depression (Oldpeak)", min_value=0, max_value=50)
+    oldpeak = st.number_input("ST Depression (Oldpeak)", min_value=0.0, max_value=50.0)
 
 input_dict = {'age': age, 'sex': sex, 'chest_pain': chest_pain, 'blood_sugar': blood_sugar, 'restecg': restecg, 'exang': exang, 'st_slope': st_slope, 'cholesterol': cholesterol, 'restbps': restbps, 'max_heart_rate': max_heart_rate, 'oldpeak': oldpeak}
 
