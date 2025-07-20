@@ -26,7 +26,7 @@ with st.sidebar:
     max_heart_rate = st.number_input("Maximum exercise-induced heart rate results", min_value=60, max_value=300)
     oldpeak = st.number_input("ST Depression (Oldpeak)", min_value=0.0, max_value=50.0)
 
-input_dict = {'age': age, 'sex': sex, 'chest_pain': chest_pain, 'blood_sugar': blood_sugar, 'restecg': restecg, 'exang': exang, 'st_slope': st_slope, 'cholesterol': cholesterol, 'restbps': restbps, 'max_heart_rate': max_heart_rate, 'oldpeak': oldpeak}
+input_dict = {'age': age, 'sex': sex, 'chest_pain': chest_pain, 'restbps': restbps, 'cholesterol': cholesterol, 'blood_sugar': blood_sugar, 'restecg': restecg, 'max_heartrt': max_heart_rate, 'exang': exang, 'oldpeak': oldpeak, 'slope': st_slope}
 
 input_df = pd.DataFrame(input_dict, index=[0])
 
@@ -68,6 +68,8 @@ scaler = StandardScaler()
 
 
 dataset._append(input_df)
+
+dataset = dataset.drop(columns=['ca', 'thal', 'target'], inplace=True)
 
 
 dataset_scaled = scaler.fit_transform(dataset)
