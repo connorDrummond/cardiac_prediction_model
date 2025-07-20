@@ -71,7 +71,7 @@ elif st_slope == 'Flat':
 
 
 
-input_dict = {'age': age, 'sex': sex, 'chest_pain': chest_pain_num, 'restbps': restbps, 'cholesterol': cholesterol,
+input_dict = {'age': age, 'sex': sex_num, 'chest_pain': chest_pain_num, 'restbps': restbps, 'cholesterol': cholesterol,
               'blood_sugar': blood_sugar_num, 'restecg': restecg_num, 'max_heartrt': max_heart_rate, 'exang': exang_num,
               'oldpeak': oldpeak, 'slope': st_slope_num}
 
