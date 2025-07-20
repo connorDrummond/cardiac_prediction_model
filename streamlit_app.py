@@ -70,7 +70,8 @@ dataset._append(input_df)
 
 
 dataset = dataset.drop(columns=['ca', 'thal', 'target'], inplace=True)
-dataset
+
+st.write(dataset)
 
 dataset_scaled = scaler.fit_transform(dataset)
 
