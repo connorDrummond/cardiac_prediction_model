@@ -71,8 +71,8 @@ elif st_slope == 'Flat':
 
 
 
-input_dict = {'age': age, 'sex': sex_num, 'chest_pain': chest_pain_num, 'restbps': restbps, 'cholesterol': cholesterol,
-              'blood_sugar': blood_sugar_num, 'restecg': restecg_num, 'max_heartrt': max_heart_rate, 'exang': exang_num,
+input_dict = {'age': age, 'sex': sex_num, 'cp': chest_pain_num, 'trestbps': restbps, 'chol': cholesterol,
+              'fbs': blood_sugar_num, 'restecg': restecg_num, 'thalach': max_heart_rate, 'exang': exang_num,
               'oldpeak': oldpeak, 'slope': st_slope_num}
 
 input_df = pd.DataFrame(input_dict, index=[0])
@@ -119,9 +119,9 @@ scaler = StandardScaler()
 prediction_model = tf.keras.models.load_model('heart_disease_prediction_model.h5')
 
 if st.button("Predict"):
-    dataset = pd.concat([dataset, input_df], axis=0)
-    dataset.drop(columns=['ca', 'thal', 'target'], inplace=True)
 
+    dataset.drop(columns=['ca', 'thal', 'target'], inplace=True)
+    dataset = pd.concat([dataset, input_df], axis=0)
     dataset_scaled = scaler.fit_transform(dataset)
     st.write(dataset_scaled)
     prediction = prediction_model.predict(dataset_scaled)
