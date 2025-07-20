@@ -119,13 +119,21 @@ scaler = StandardScaler()
 
 # evaluate the model.
 # model.evaluate(x_test_scaled, y_test, verbose=2)
-#
+
+
+# load the model
 
 prediction_model = tf.keras.models.load_model('heart_disease_prediction_model.h5')
+
+# manipulate data to fit the model and add input data
 dataset.drop(columns=['ca', 'thal', 'target'], inplace=True)
 dataset = pd.concat([dataset, input_df], axis=0)
 dataset_scaled = scaler.fit_transform(dataset)
+
+# make predictions
 prediction = prediction_model.predict(dataset_scaled)
+
+# using a prediction value of .6 for a measuring stick, we will assign either 1 or 0 to the prediction class, then check our accuracy against the target feature.
 
 dataset['prediction'] = prediction
 if st.button("Predict"):
