@@ -119,7 +119,7 @@ scaler = StandardScaler()
 
 # evaluate the model.
 # model.evaluate(x_test_scaled, y_test, verbose=2)
-
+#
 
 prediction_model = tf.keras.models.load_model('heart_disease_prediction_model.h5')
 
