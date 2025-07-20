@@ -75,15 +75,16 @@ dataset.drop(columns=['ca', 'thal', 'target'], inplace=True)
 
 dataset_scaled = scaler.fit_transform(dataset)
 
-last_row = dataset_scaled[-1]
-st.write(last_row)
+
+
+st.write(dataset_scaled)
 
 prediction_model = tf.keras.models.load_model('heart_disease_prediction_model.h5')
 
 
 
 if st.button("Predict"):
-    features = last_row
+    last_row = []
     prediction = prediction_model.predict(last_row)
     st.write(f"Your likelihood of Coronary Artery Disease: {prediction[0]}")
 
