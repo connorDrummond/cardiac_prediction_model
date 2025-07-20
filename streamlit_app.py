@@ -20,8 +20,8 @@ with st.sidebar:
                               ('None', 'Typical angina', 'Atypical angina', 'Non-anginal pain', 'Asymptomatic'))
     blood_sugar = st.selectbox('Is your blood sugar > 120 mg/dl?', ('Yes', 'No'))
     restecg = st.selectbox('Resting ECG results', (
-    'Normal', 'ST-T wave abnormality (e.g., T wave inversion, ST elevation/depression > 0.05 mV)',
-    "Left ventricular hypertrophy (by Estes' criteria"))
+        'Normal', 'ST-T wave abnormality (e.g., T wave inversion, ST elevation/depression > 0.05 mV)',
+        "Left ventricular hypertrophy (by Estes' criteria"))
     exang = st.selectbox('Exercise-related angina', ('Yes', 'No'))
     st_slope = st.selectbox('ST Slope', ('Upsloping', 'Flat', 'Downsloping'))
     cholesterol = st.number_input("Cholesterol results", min_value=100, max_value=300)
@@ -72,15 +72,10 @@ scaler = StandardScaler()
 # model.evaluate(x_test_scaled, y_test, verbose=2)
 
 
-
-
-
-
 prediction_model = tf.keras.models.load_model('heart_disease_prediction_model.h5')
 
 if st.button("Predict"):
-
-    pd.concat([dataset, input_df], axis=0)
+    dataset = pd.concat([dataset, input_df], axis=0)
     dataset.drop(columns=['ca', 'thal', 'target'], inplace=True)
 
     dataset_scaled = scaler.fit_transform(dataset)
@@ -88,4 +83,3 @@ if st.button("Predict"):
     st.write(f"Your likelihood of Coronary Artery Disease: {prediction}")
     dataset_scaled = scaler.inverse_transform(dataset_scaled)
     st.write(dataset_scaled)
-
