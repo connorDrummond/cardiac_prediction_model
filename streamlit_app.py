@@ -32,7 +32,9 @@ input_df = pd.DataFrame(input_dict, index=[0])
 
 input_df
 
-dataset = pd.read_csv('cardiac_arrest_dataset.csv')
+# Below is the code for the model. It has already been trained and saved as 'heart_disease_predicition_model.h5'
+
+"""dataset = pd.read_csv('cardiac_arrest_dataset.csv')
 
 # create our training, and validation data. Randomly choose which data is in which set.
 x = dataset[['age', 'sex', 'cp', 'trestbps', 'chol', 'fbs', 'restecg', 'thalach', 'exang', 'oldpeak','slope' ]]
@@ -61,7 +63,7 @@ model.compile(optimizer='adam', loss='mean_squared_error')
 model.fit(x_train_scaled, y_train, epochs=40, batch_size=32, validation_split=0.2, verbose=2)
 
 # evaluate the model.
-model.evaluate(x_test_scaled, y_test, verbose=2)
+model.evaluate(x_test_scaled, y_test, verbose=2)"""
 
 
 
