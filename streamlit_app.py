@@ -32,6 +32,7 @@ input_df = pd.DataFrame(input_dict, index=[0])
 
 input_df
 dataset = pd.read_csv('cardiac_arrest_dataset.csv')
+
 # Below is the code for the model. It has already been trained and saved as 'heart_disease_predicition_model.h5'
 
 
@@ -69,9 +70,8 @@ scaler = StandardScaler()
 dataset._append(input_df)
 
 
-dataset = dataset.drop(columns=['ca', 'thal', 'target'], inplace=True)
+dataset.drop(columns=['ca', 'thal', 'target'], inplace=True)
 
-st.write(dataset)
 
 dataset_scaled = scaler.fit_transform(dataset)
 
