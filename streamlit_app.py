@@ -133,7 +133,7 @@ dataset_scaled = scaler.fit_transform(dataset)
 # make predictions on the dataset
 prediction = prediction_model.predict(dataset_scaled)
 
-# As the model can predict values slightly lower than 0 or slightly higher than 1, we will scale the extreme ends of prediction to < .05 and >.95. This will alleviate user confusion.
+## As the model can predict values slightly lower than 0 or slightly higher than 1, we will scale the extreme ends of prediction to < .05 and >.95. This will alleviate user confusion.
 for x in prediction:
     if x >= .95:
          x = .95
