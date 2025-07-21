@@ -135,7 +135,7 @@ prediction = prediction_model.predict(dataset_scaled)
 
 ## As the model can predict values slightly lower than 0 or slightly higher than 1, we will scale the extreme ends of prediction to < .05 and >.95. This will alleviate user confusion.
 
-scaled_prediction = np.empty()
+scaled_prediction = []
 for x in prediction:
     if x >= .95:
          x = .95
@@ -144,7 +144,7 @@ for x in prediction:
     else:
         x = x
 
-    scaled_prediction = np.append(scaled_prediction, x)
+    scaled_prediction.append(x)
 
 
 st.write(scaled_prediction)
