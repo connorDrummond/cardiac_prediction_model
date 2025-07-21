@@ -130,12 +130,14 @@ dataset.drop(columns=['ca', 'thal', 'target'], inplace=True)
 dataset = pd.concat([dataset, input_df], axis=0)
 dataset_scaled = scaler.fit_transform(dataset)
 
-# make predictions
+# make predictions on the dataset
 prediction = prediction_model.predict(dataset_scaled)
 
-# using a prediction value of .6 for a measuring stick, we will assign either 1 or 0 to the prediction class, then check our accuracy against the target feature.
+user_predict = prediction[-1]
+
+# As the model can predict values slightly lower than 0 or slightly higher than 1, we will scale the extreme ends of prediction to < .05 and >.95. This will alleviate user confusion.
 
 dataset['prediction'] = prediction
 if st.button("Predict"):
-    st.write(f"Your likelihood of Coronary Artery Disease: {prediction}")
+    st.write(f"Your likelihood of Coronary Artery Disease: {user_predict}")
 
