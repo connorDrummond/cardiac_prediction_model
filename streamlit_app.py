@@ -135,6 +135,8 @@ prediction = prediction_model.predict(dataset_scaled)
 
 user_predict = prediction[-1]
 
+st.write(user_predict)
+
 # As the model can predict values slightly lower than 0 or slightly higher than 1, we will scale the extreme ends of prediction to < .05 and >.95. This will alleviate user confusion.
 
 dataset['prediction'] = prediction
