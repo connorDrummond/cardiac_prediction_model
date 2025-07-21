@@ -77,8 +77,6 @@ input_dict = {'age': age, 'sex': sex_num, 'cp': chest_pain_num, 'trestbps': rest
 
 input_df = pd.DataFrame(input_dict, index=[0])
 
-input_df
-
 
 dataset = pd.read_csv('cardiac_arrest_dataset.csv')
 
@@ -139,9 +137,6 @@ prediction = prediction_model.predict(dataset_scaled)
 
 user_predict = prediction[-1]
 
-
-
-st.write(user_predict)
 
 
 
