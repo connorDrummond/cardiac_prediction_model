@@ -137,10 +137,20 @@ prediction = prediction_model.predict(dataset_scaled)
 
 user_predict = prediction[-1]
 
+if user_predict[0] < .05:
+    user_predict[0] = .05
+elif user_predict[0] > .95:
+    user_predict[0] = .95
+
+
+
 
 
 
 dataset['prediction'] = prediction
 if st.button("Predict"):
     st.write(f"Your likelihood of Coronary Artery Disease: {user_predict}")
-
+    if user_predict[0] > .60:
+        st.write("See your doctor- you have a high risk of developing Coronary Artery Disease.")
+    else:
+        st.write("You have a low risk of developing Coronary Artery Disease.")
