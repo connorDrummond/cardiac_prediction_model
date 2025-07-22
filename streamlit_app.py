@@ -156,7 +156,7 @@ if st.button("Predict"):
     else:
         st.write("You have a low risk of developing Coronary Artery Disease.")
 
-prediction_map = pd.DataFrame(prediction, index=[0], columns=['prediction'])
+prediction_map = pd.DataFrame(prediction, columns=['prediction'])
 
 dataset = pd.concat([dataset, prediction_map], axis=1)
 
