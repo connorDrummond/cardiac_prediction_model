@@ -128,6 +128,7 @@ dataset_scaled = scaler.fit_transform(dataset)
 
 # make predictions on the dataset
 prediction = prediction_model.predict(dataset_scaled)
+x_test_scaled = scaler.fit_transform(x_test)
 prediction_test = prediction_model.predict(x_test)
 ## As the model can predict values slightly lower than 0 or slightly higher than 1, we will scale the extreme ends of prediction to < .05 and >.95. This will alleviate user confusion.
 
@@ -155,7 +156,7 @@ if st.button("Predict"):
 
 prediction_map = pd.DataFrame(data = prediction_test, columns=['predictions'])
 
-dataset_test = pd.concat([x_test, prediction_map], axis=0, ignore_index=True)
+dataset_test = pd.concat([x_test, prediction_map], axis=0)
 
 #dataset_test = dataset.drop(labels ='predictions', axis = 1)
 
