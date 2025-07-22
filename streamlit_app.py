@@ -78,7 +78,7 @@ input_dict = {'age': age, 'sex': sex_num, 'cp': chest_pain_num, 'trestbps': rest
 
 input_df = pd.DataFrame(input_dict, index=[0])
 
-
+scaler = StandardScaler()
 dataset = pd.read_csv('cardiac_arrest_dataset.csv')
 
 
@@ -90,14 +90,14 @@ dataset = pd.read_csv('cardiac_arrest_dataset.csv')
 
 x = dataset[['age', 'sex', 'cp', 'trestbps', 'chol', 'fbs', 'restecg', 'thalach', 'exang', 'oldpeak','slope' ]]
 y = dataset['target']
-
+dataset = scaler.fit_transform(x)
 x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.2, random_state=42)
 
 # create the model
 # model = tf.keras.models.Sequential()
 
 # scale the input to fit the model
-scaler = StandardScaler()
+
 
 # x_train_scaled = scaler.fit_transform(x_train)
 # x_test_scaled = scaler.fit_transform(x_test)
@@ -129,8 +129,9 @@ dataset_scaled = scaler.fit_transform(dataset)
 
 # make predictions on the dataset
 prediction = prediction_model.predict(dataset_scaled)
-x_scaled_test = scaler.fit_transform(x_test)
+
 prediction_test = prediction_model.predict(x_test)
+st.write(prediction_test)
 ## As the model can predict values slightly lower than 0 or slightly higher than 1, we will scale the extreme ends of prediction to < .05 and >.95. This will alleviate user confusion.
 
 
