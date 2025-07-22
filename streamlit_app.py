@@ -157,4 +157,6 @@ prediction_map = pd.DataFrame(data = prediction, columns=['predictions'])
 
 dataset = pd.concat([dataset, prediction_map], axis=0, ignore_index=True)
 
+dataset = dataset.drop(labels ='predictions', axis = 1)
+
 st.write(dataset)
