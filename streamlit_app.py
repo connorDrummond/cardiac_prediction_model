@@ -81,9 +81,6 @@ input_df = pd.DataFrame(input_dict, index=[0])
 
 dataset = pd.read_csv('cardiac_arrest_dataset.csv')
 
-# calculate the mean and standard deviation of target in order to reverse the scaling in predictions
-mean = dataset['target'].mean()
-std = dataset['target'].std()
 
 
 # Below is the code for the model. It has already been trained and saved as 'heart_disease_predicition_model.h5'
@@ -156,7 +153,7 @@ if st.button("Predict"):
     else:
         st.write("You have a low risk of developing Coronary Artery Disease.")
 
-prediction_map = pd.DataFrame(prediction, columns=['prediction'])
+prediction_map = pd.DataFrame(data = prediction, columns=['predictions'])
 
 dataset = pd.concat([dataset, prediction_map], axis=1)
 
