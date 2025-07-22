@@ -6,6 +6,7 @@ import numpy as np
 import pandas as pd
 import tensorflow as tf
 from sklearn.preprocessing import StandardScaler
+import matplotlib.pyplot as plt
 
 # create the front-end to collect user data
 st.title("Coronary Artery Disease Predictor")
@@ -154,3 +155,9 @@ if st.button("Predict"):
         st.write("See your doctor- you have a high risk of developing Coronary Artery Disease.")
     else:
         st.write("You have a low risk of developing Coronary Artery Disease.")
+
+prediction_map = pd.DataFrame(prediction, index=[0], columns=['prediction'])
+
+dataset = pd.concat([dataset, prediction_map], axis=1)
+
+st.write(dataset)

@@ -4,6 +4,8 @@ import numpy as np
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
 from tensorflow import keras
+import matplotlib.pyplot as plt
+
 
 dataset = pd.read_csv('cardiac_arrest_dataset.csv')
 
@@ -50,7 +52,9 @@ model.evaluate(x_test_scaled, y_test, verbose=2)
 # save the model to upload to the application
 #model.save('heart_disease_prediction_model.h5')
 
-compare_df = model.predict(x_scaled)
+compare_df = model.predict(x_test_scaled)
+
+
 
 #dfseries = pd.Series(compare_df.flatten(), name='prediction')
 
