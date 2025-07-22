@@ -88,10 +88,10 @@ dataset = pd.read_csv('cardiac_arrest_dataset.csv')
 
 # create our training, and validation data. Randomly choose which data is in which set.
 
-# x = dataset[['age', 'sex', 'cp', 'trestbps', 'chol', 'fbs', 'restecg', 'thalach', 'exang', 'oldpeak','slope' ]]
-# y = dataset['target']
+x = dataset[['age', 'sex', 'cp', 'trestbps', 'chol', 'fbs', 'restecg', 'thalach', 'exang', 'oldpeak','slope' ]]
+y = dataset['target']
 
-# x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.2, random_state=42)
+x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.2, random_state=42)
 
 # create the model
 # model = tf.keras.models.Sequential()
@@ -128,7 +128,7 @@ dataset_scaled = scaler.fit_transform(dataset)
 
 # make predictions on the dataset
 prediction = prediction_model.predict(dataset_scaled)
-
+prediction_test = prediction_model.predict(x_test)
 ## As the model can predict values slightly lower than 0 or slightly higher than 1, we will scale the extreme ends of prediction to < .05 and >.95. This will alleviate user confusion.
 
 
@@ -153,10 +153,10 @@ if st.button("Predict"):
     else:
         st.write("You have a low risk of developing Coronary Artery Disease.")
 
-prediction_map = pd.DataFrame(data = prediction, columns=['predictions'])
+prediction_map = pd.DataFrame(data = prediction_test, columns=['predictions'])
 
-dataset = pd.concat([dataset, prediction_map], axis=0, ignore_index=True)
+dataset_test = pd.concat([x_test, prediction_map], axis=0, ignore_index=True)
 
-dataset = dataset.drop(labels ='predictions', axis = 1)
+dataset_test = dataset.drop(labels ='predictions', axis = 1)
 
-st.write(dataset)
+st.write(dataset_test)
