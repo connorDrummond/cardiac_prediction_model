@@ -98,6 +98,7 @@ x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.2, random_
 
 # scale the input to fit the model
 scaler = StandardScaler()
+
 # x_train_scaled = scaler.fit_transform(x_train)
 # x_test_scaled = scaler.fit_transform(x_test)
 
@@ -128,7 +129,7 @@ dataset_scaled = scaler.fit_transform(dataset)
 
 # make predictions on the dataset
 prediction = prediction_model.predict(dataset_scaled)
-x_test_scaled = scaler.fit_transform(x_test)
+x_scaled_test = scaler.fit_transform(x_test)
 prediction_test = prediction_model.predict(x_test)
 ## As the model can predict values slightly lower than 0 or slightly higher than 1, we will scale the extreme ends of prediction to < .05 and >.95. This will alleviate user confusion.
 
