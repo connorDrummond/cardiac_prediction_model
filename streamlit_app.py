@@ -155,6 +155,6 @@ if st.button("Predict"):
 
 prediction_map = pd.DataFrame(data = prediction, columns=['predictions'])
 
-dataset = pd.concat([dataset, prediction_map], axis=1)
+dataset = pd.concat([dataset, prediction_map], axis=0, ignore_index=True)
 
 st.write(dataset)
