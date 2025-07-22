@@ -41,18 +41,22 @@ model.add(keras.layers.Dense(1, activation='linear'))
 model.compile(optimizer='adam', loss='mean_squared_error')
 
 # train the model
-model.fit(x_train_scaled, y_train, epochs=40, batch_size=32, validation_split=0.2, verbose=2)
+model.fit(x_train_scaled, y_train, epochs=40
+          , batch_size=32, validation_split=0.2, verbose=2)
 
 # evaluate the model.
 model.evaluate(x_test_scaled, y_test, verbose=2)
 
+# save the model to upload to the application
+#model.save('heart_disease_prediction_model.h5')
+
 compare_df = model.predict(x_scaled)
 
-dfseries = pd.Series(compare_df.flatten(), name='prediction')
+#dfseries = pd.Series(compare_df.flatten(), name='prediction')
 
-dataset['prediction'] = dfseries
-dataset['rescaled'] = dataset['prediction']*.5+.5
+#dataset['prediction'] = dfseries
+#dataset['rescaled'] = dataset['prediction']*.5+.5
 
-dataset.to_csv('output.csv')
+#dataset.to_csv('output.csv')
 
-print(dataset)
+
