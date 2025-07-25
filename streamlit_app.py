@@ -97,9 +97,9 @@ for i in dataset['sex']:
         female += 1
 # plot the distributions of age, sex, and presence of coronary artery disease.
 age_distribution = plt.hist(dataset['age'])
-cad_distribution = plt.pie([true_count, false_count], ['Has CAD', 'No CAD'])
+cad_distribution = plt.pie([true_count, false_count], label =['Has CAD', 'No CAD'])
 plt.axis('equal')
-sex_distribution = plt.pie([male, female], ['Male', 'Female'])
+sex_distribution = plt.pie([male, female], label =['Male', 'Female'])
 plt.axis('equal')
 # calculate the mean and standard deviation of target in order to reverse the scaling in predictions
 mean = dataset['target'].mean()
