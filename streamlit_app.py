@@ -7,6 +7,9 @@ import tensorflow as tf
 from sklearn.preprocessing import StandardScaler
 import matplotlib.pyplot as plt
 
+
+# read the data from .csv into a dataframe.
+dataset = pd.read_csv('cardiac_arrest_dataset.csv')
 # create the front-end to collect user data
 st.title("Coronary Artery Disease Predictor")
 st.write(
@@ -69,6 +72,39 @@ elif st_slope == 'Downsloping':
 elif st_slope == 'Flat':
     st_slope_num = 1
 
+# count the number of patients who have CAD.
+true_count = 0
+false_count = 0
+for x in dataset['target']:
+    if x == 1:
+        true_count += 1
+    else:
+        false_count += 1
+# count the number of patients who are male and female.
+male = 0
+female = 0
+for i in dataset['sex']:
+    if i == 1:
+        male += 1
+    else:
+        female += 1
+
+# plot the distributions of age, sex, and presence of coronary artery disease.
+age_distribution = plt.hist(dataset['age'])
+plt.xlabel('Age')
+plt.ylabel('Frequency')
+plt.savefig('age_distribution.png')
+plt.close()
+
+cad_distribution = plt.pie([true_count, false_count], labels =['Has CAD', 'No CAD'])
+plt.axis('equal')
+plt.savefig('cad_distribution.png')
+plt.close()
+
+sex_distribution = plt.pie([male, female], labels =['Male', 'Female'])
+plt.axis('equal')
+plt.savefig('sex_distribution.png')
+plt.close()
 
 # create a dataframe out of user input for use later in prediction.
 input_dict = {'age': age, 'sex': sex_num, 'cp': chest_pain_num, 'trestbps': restbps, 'chol': cholesterol,
@@ -77,8 +113,7 @@ input_dict = {'age': age, 'sex': sex_num, 'cp': chest_pain_num, 'trestbps': rest
 
 input_df = pd.DataFrame(input_dict, index=[0])
 
-# read the data from .csv into a dataframe.
-dataset = pd.read_csv('cardiac_arrest_dataset.csv')
+
 # count the number of patients who have CAD.
 true_count = 0
 false_count = 0
@@ -106,24 +141,22 @@ plt.axis('equal')
 mean = dataset['target'].mean()
 std = dataset['target'].std()
 
-st.pyplot(age_distribution)
-st.pyplot(cad_distribution)
-st.pyplot(sex_distribution)
+
 # Below is the code for the model. It has already been trained and saved as 'heart_disease_predicition_model.h5'
 
 
 # create our training, and validation data. Randomly choose which data is in which set.
-
-x = dataset[['age', 'sex', 'cp', 'trestbps', 'chol', 'fbs', 'restecg', 'thalach', 'exang', 'oldpeak','slope' ]]
-y = dataset['target']
-
-x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.2, random_state=42)
+# although this is part of the code for the model, we will need to initialize the scaler for future use, and s
+#x = dataset[['age', 'sex', 'cp', 'trestbps', 'chol', 'fbs', 'restecg', 'thalach', 'exang', 'oldpeak','slope' ]]
+#y = dataset['target']
+# scale the input to fit the model
+scaler = StandardScaler()
+#x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.2, random_state=42)
 
 # create the model
 # model = tf.keras.models.Sequential()
 
-# scale the input to fit the model
-scaler = StandardScaler()
+
 
 # x_train_scaled = scaler.fit_transform(x_train)
 # x_test_scaled = scaler.fit_transform(x_test)
@@ -148,17 +181,13 @@ scaler = StandardScaler()
 
 prediction_model = tf.keras.models.load_model('heart_disease_prediction_model.h5')
 
-# manipulate data to fit the model and add input data
+# manipulate data to fit the model and add input data. Also use the standard scaler to scale user input.
 dataset.drop(columns=['ca', 'thal', 'target'], inplace=True)
 dataset = pd.concat([dataset, input_df], axis=0)
 dataset_scaled = scaler.fit_transform(dataset)
 
 # make predictions on the dataset
 prediction = prediction_model.predict(dataset_scaled)
-x_scaled_test = scaler.fit_transform(x_test)
-prediction_test = prediction_model.predict(x_test)
-
-
 
 # isolate the user prediction from the general dataframe
 user_predict = prediction[-1]

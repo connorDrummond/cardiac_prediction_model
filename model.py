@@ -49,23 +49,5 @@ model.evaluate(x_test_scaled, y_test, verbose=2)
 # save the model to upload to the application
 #model.save('heart_disease_prediction_model.h5')
 
-# concatenate our predictions along with target to our test set for analysis
-
-test_predict = model.predict(x_test_scaled)
-y_predict = pd.DataFrame(y_test, columns=['target'])
-x_tst_df = pd.DataFrame(data = x_test_scaled, columns = ['age', 'sex', 'cp', 'trestbps', 'chol', 'fbs', 'restecg', 'thalach', 'exang', 'oldpeak', 'slope'])
-x_pred = pd.DataFrame(data = test_predict, columns = ['predictions'])
-y_predict = y_predict.reset_index(drop=True)
-
-compare_df = pd.concat([x_tst_df, x_pred], axis=1, ignore_index=True)
-compare_df = pd.concat([compare_df, y_predict], axis=1, ignore_index=False)
-print(compare_df)
-
-#dfseries = pd.Series(compare_df.flatten(), name='prediction')
-
-#dataset['prediction'] = dfseries
-#dataset['rescaled'] = dataset['prediction']*.5+.5
-
-#dataset.to_csv('output.csv')
 
 
