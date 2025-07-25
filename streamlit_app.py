@@ -212,3 +212,6 @@ if st.button("Predict"):
         st.write("You have a low risk of developing Coronary Artery Disease.")
 
 
+st.image('cad_distribution.png')
+st.image('age_distribution.png')
+st.image('sex_distribution.png')
