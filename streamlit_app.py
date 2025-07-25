@@ -105,7 +105,9 @@ plt.axis('equal')
 mean = dataset['target'].mean()
 std = dataset['target'].std()
 
-
+st.pyplot(age_distribution)
+st.pyplot(cad_distribution)
+st.pyplot(sex_distribution)
 # Below is the code for the model. It has already been trained and saved as 'heart_disease_predicition_model.h5'
 
 
@@ -180,6 +182,3 @@ if st.button("Predict"):
         st.write("You have a low risk of developing Coronary Artery Disease.")
 
 
-st.pyplot(age_distribution)
-st.pyplot(cad_distribution)
-st.pyplot(sex_distribution)
