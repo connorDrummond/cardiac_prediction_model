@@ -1,6 +1,5 @@
 import streamlit as st
 from sklearn.model_selection import train_test_split
-from sklearn.preprocessing import LabelEncoder
 from tensorflow import keras
 import numpy as np
 import pandas as pd
@@ -29,7 +28,7 @@ with st.sidebar:
     restbps = st.number_input("Resting systolic blood pressure results", min_value=80, max_value=250)
     max_heart_rate = st.number_input("Maximum exercise-induced heart rate results", min_value=60, max_value=300)
     oldpeak = st.number_input("ST Depression (Oldpeak)", min_value=0.0, max_value=50.0)
-
+# Change any categorical data into integers.
 if sex == 'Male':
     sex_num = 1
 else:
@@ -71,16 +70,40 @@ elif st_slope == 'Flat':
     st_slope_num = 1
 
 
-
+# create a dataframe out of user input for use later in prediction.
 input_dict = {'age': age, 'sex': sex_num, 'cp': chest_pain_num, 'trestbps': restbps, 'chol': cholesterol,
               'fbs': blood_sugar_num, 'restecg': restecg_num, 'thalach': max_heart_rate, 'exang': exang_num,
               'oldpeak': oldpeak, 'slope': st_slope_num}
 
 input_df = pd.DataFrame(input_dict, index=[0])
 
-
+# read the data from .csv into a dataframe.
 dataset = pd.read_csv('cardiac_arrest_dataset.csv')
-
+# count the number of patients who have CAD.
+true_count = 0
+false_count = 0
+for x in dataset['target']:
+    if x == 1:
+        true_count += 1
+    else:
+        false_count += 1
+# count the number of patients who are male and female.
+male = 0
+female = 0
+for i in dataset['sex']:
+    if i == 1:
+        male += 1
+    else:
+        female += 1
+# plot the distributions of age, sex, and presence of coronary artery disease.
+age_distribution = plt.hist(dataset['age'])
+cad_distribution = plt.pie([true_count, false_count], ['Has CAD', 'No CAD'])
+plt.axis('equal')
+sex_distribution = plt.pie([male, female], ['Male', 'Female'])
+plt.axis('equal')
+# calculate the mean and standard deviation of target in order to reverse the scaling in predictions
+mean = dataset['target'].mean()
+std = dataset['target'].std()
 
 
 # Below is the code for the model. It has already been trained and saved as 'heart_disease_predicition_model.h5'
@@ -131,12 +154,13 @@ dataset_scaled = scaler.fit_transform(dataset)
 prediction = prediction_model.predict(dataset_scaled)
 x_scaled_test = scaler.fit_transform(x_test)
 prediction_test = prediction_model.predict(x_test)
-## As the model can predict values slightly lower than 0 or slightly higher than 1, we will scale the extreme ends of prediction to < .05 and >.95. This will alleviate user confusion.
 
 
 
+# isolate the user prediction from the general dataframe
 user_predict = prediction[-1]
 
+## As the model can predict values slightly lower than 0 or slightly higher than 1, we will scale the extreme ends of prediction to < .05 and >.95. This will alleviate user confusion.
 if user_predict[0] < .05:
     user_predict[0] = .05
 elif user_predict[0] > .95:
@@ -145,7 +169,7 @@ elif user_predict[0] > .95:
 
 
 
-
+# return the model prediction and a message classifying the user as low or high risk.
 
 dataset['prediction'] = prediction
 if st.button("Predict"):
@@ -155,10 +179,7 @@ if st.button("Predict"):
     else:
         st.write("You have a low risk of developing Coronary Artery Disease.")
 
-prediction_map = pd.DataFrame(data = prediction_test, columns=['predictions'])
 
-dataset_test = pd.concat([x_test, prediction_map], axis=0, ignore_index=True)
-
-#dataset_test = dataset.drop(labels ='predictions', axis = 1)
-
-st.write(dataset_test)
+st.pyplot(age_distribution)
+st.pyplot(cad_distribution)
+st.pyplot(sex_distribution)

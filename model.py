@@ -6,9 +6,30 @@ from sklearn.preprocessing import StandardScaler
 from tensorflow import keras
 import matplotlib.pyplot as plt
 
-
+# read the data from .csv into a dataframe.
 dataset = pd.read_csv('cardiac_arrest_dataset.csv')
 
+# count the number of patients who have CAD.
+true_count = 0
+false_count = 0
+for x in dataset['target']:
+    if x == 1:
+        true_count += 1
+    else:
+        false_count += 1
+# count the number of patients who are male and female.
+male = 0
+female = 0
+for i in dataset['sex']:
+    if i == 1:
+        male += 1
+    else:
+        female += 1
+# plot the distributions of age, sex, and presence of coronary artery disease.
+age_distribution = plt.hist(dataset['age'])
+cad_distribution = plt.pie([true_count, false_count], ['Has CAD', 'No CAD'])
+plt.axis('equal')
+sex_distribution = plt.pie()
 # calculate the mean and standard deviation of target in order to reverse the scaling in predictions
 mean = dataset['target'].mean()
 std = dataset['target'].std()
@@ -62,7 +83,7 @@ y_predict = y_predict.reset_index(drop=True)
 
 compare_df = pd.concat([x_tst_df, x_pred], axis=1, ignore_index=True)
 compare_df = pd.concat([compare_df, y_predict], axis=1, ignore_index=False)
-#print(compare_df)
+print(compare_df)
 
 #dfseries = pd.Series(compare_df.flatten(), name='prediction')
 
