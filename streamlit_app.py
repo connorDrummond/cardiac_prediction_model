@@ -146,10 +146,11 @@ std = dataset['target'].std()
 
 
 # create our training, and validation data. Randomly choose which data is in which set.
-# although this is part of the code for the model, we will need to initialize the scaler for future use, and s
+
 #x = dataset[['age', 'sex', 'cp', 'trestbps', 'chol', 'fbs', 'restecg', 'thalach', 'exang', 'oldpeak','slope' ]]
 #y = dataset['target']
 # scale the input to fit the model
+# we will need the scaler to scale the user input before being fed to the model for prediction.
 scaler = StandardScaler()
 #x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.2, random_state=42)
 
