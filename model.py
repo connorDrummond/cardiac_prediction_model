@@ -30,7 +30,6 @@ scaler = StandardScaler()
 x_train_scaled = scaler.fit_transform(x_train)
 x_test_scaled = scaler.fit_transform(x_test)
 x_scaled = scaler.fit_transform(x)
-# print(x_train_scaled.shape)
 # add layers to the model
 model.add(keras.layers.Dense(units=64, activation='relu', input_shape=(x_train_scaled.shape[1],)))
 model.add(keras.layers.Dense(8, input_dim=5, activation='relu'))  # Adjust number of neurons if needed
